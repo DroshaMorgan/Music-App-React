@@ -21,7 +21,7 @@ const Tracks = () => {
     const [currentTimeAudioPlay, setCurrentTimeAudioPlay] = useState('');
     // const [nextAudioPlay, setNextAudioPlay] = useState();
     // const [oldTrack, setOldTrack] = useState([]);
-    const [currentVolume, setCurrentVolume] = useState(0.3);
+    const [currentVolume, setCurrentVolume] = useState(0.2);
 
 
     const album_name = useParams();
@@ -59,6 +59,7 @@ const Tracks = () => {
 
     useEffect(() => {
         playMusic();
+        audioPlay.volume = (currentVolume);
         audioPlay.ontimeupdate = () => {
             setCurrentTimeAudioPlay(Math.trunc(audioPlay.currentTime))
         };
