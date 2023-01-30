@@ -1,0 +1,237 @@
+.main-bcg {
+  min-height: 100vh;
+  width: 100%;
+  background-image: url(./main-bcg.jpg);
+  background-position: center;
+  background-size: cover;
+  // filter: blur(10px);
+
+  &__blackout {
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+  }
+
+  &__info-block {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 700;
+    font-size: 35px;
+
+    &-top {
+      margin-bottom: 50px;
+    }
+
+    &-middle {
+      margin-bottom: 30px;
+      font-size: 50px;
+
+      text-decoration: none;
+      color: #e1baff;
+      transition: 0.1s;
+
+      &:hover {
+        color: #cb87ff;
+      }
+    }
+
+    &-bottom {
+      font-weight: 400;
+      font-size: 20px;
+    }
+  }
+}
+
+
+
+
+.bottom-player {
+  // visibility: hidden;
+
+  height: 100px;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  background: #1F1F22;
+
+  padding: 0 20px;
+  //display: none;
+display: flex;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+
+  z-index: 2;
+
+  &__img-title {
+    width: 300px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .player {
+    padding: 0 16.5px;
+    height: 100%;
+
+    &__all-controls {
+      width: 1000px;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .player-controls {
+        margin: auto;
+        width: 515px;
+        height: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+
+        .play__range {
+
+          //для range сделать один класс
+          .play__range-el {
+            height: 5px;
+            margin: 10px 0;
+            -webkit-appearance: none;
+            width: 100%;
+          }
+
+          .play__range-el:focus {
+            outline: none;
+          }
+
+          .play__range-el::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 5px;
+            cursor: pointer;
+            animation: 0.2s;
+            background: #b9b9ba;
+            border-radius: 2px;
+          }
+
+          .play__range-el::-webkit-slider-thumb {
+            height: 13px;
+            width: 13px;
+            border-radius: 5px;
+            background: #717171;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -4px;
+          }
+        }
+
+        .all-button {
+          display: flex;
+          justify-content: space-between;
+          height: 35px;
+
+          .play__range-timing {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            min-width: 50px;
+          }
+
+          &__elements {
+            display: flex;
+
+            .player-icon {
+              width: 35px;
+              height: 35px;
+              background-color: transparent;
+              border: 0;
+              outline: 0;
+              opacity: 0.7;
+              transition: 0.5s;
+              cursor: pointer;
+
+              &-el {
+                width: 100%;
+                height: 100%;
+              }
+            }
+
+            .player-icon:hover {
+              opacity: 1;
+            }
+          }
+
+          .play-list__duration {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            min-width: 50px;
+          }
+        }
+      }
+
+      .volume-controls {
+        margin-top: 5px;
+        height: 80px;
+        width: 200px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .volume-controls__range {
+          height: 5px;
+          margin: 10px 0;
+          -webkit-appearance: none;
+          width: 150px;
+        }
+
+        .volume-controls__range:focus {
+          outline: none;
+        }
+
+        .volume-controls__range::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 5px;
+          cursor: pointer;
+          animation: 0.2s;
+          background: #b9b9ba;
+          border-radius: 2px;
+        }
+
+        .volume-controls__range::-webkit-slider-thumb {
+          height: 13px;
+          width: 13px;
+          border-radius: 5px;
+          background: #717171;
+          cursor: pointer;
+          -webkit-appearance: none;
+          margin-top: -4px;
+        }
+      }
+    }
+
+  }
+
+  // убрать
+  //.player-icon {
+  //  width: 35px;
+  //  height: 35px;
+  //  background-color: transparent;
+  //  border: 0;
+  //  outline: 0;
+  //  opacity: 0.7;
+  //  transition: 0.5s;
+  //  cursor: pointer;
+  //
+  //  &-el {
+  //    width: 100%;
+  //    height: 100%;
+  //  }
+  //}
+
+  .play {
+    margin-right: 10px;
+  }
+}
