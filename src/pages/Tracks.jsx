@@ -21,7 +21,7 @@ const Tracks = () => {
     const [currentTimeAudioPlay, setCurrentTimeAudioPlay] = useState('');
     // const [nextAudioPlay, setNextAudioPlay] = useState();
     // const [oldTrack, setOldTrack] = useState([]);
-    const [currentVolume, setCurrentVolume] = useState('');
+    const [currentVolume, setCurrentVolume] = useState(0.3);
 
 
     const album_name = useParams();
