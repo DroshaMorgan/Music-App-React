@@ -6,8 +6,8 @@ import MainContent from "../components/MainContent";
 const Main = () => {
     return (
         <div>
-            <Navbar/>
-            <div className="content">
+            {/*<Navbar/>*/}
+            <div className="content contentMainBcg">
                 <MainContent/>
             </div>
 

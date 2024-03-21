@@ -13,11 +13,12 @@
 .navbar__container{
     width: 100%;
     height: calc(100% - 100px);
+    /*height: calc(100% - 300px);*/
     box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     padding: 20px;
 }
 
@@ -32,6 +33,10 @@
     text-decoration: none;
     color: #ffffff;
     margin-left: 15px;
+}
+
+.navbar__middleLink{
+    margin-top: 50px;
 }
 
 .navbar__middleLinkTitle{

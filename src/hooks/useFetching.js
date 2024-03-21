@@ -1,19 +1,21 @@
 import {useState} from "react";
 
-export const useFetching = (callback) => {
+export const useFetching = (url) => {
+    const [artists, setArtists] = useState([]);
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState('')
     const fetching = async () => {
         try {
             setIsLoading(true)
-            await callback()
+            const respArt = await fetch(url);
+            const respDataArt = await respArt.json();
+            setArtists(respDataArt.results);
         } catch (e) {
-            setError(e.message)
+            console.log(e.message)
         } finally {
-            setIsLoading(false)
-            // setTimeout(setIsLoading, 2000, false);
+            // setIsLoading(false)
+            setTimeout(setIsLoading, 500, false);
         }
     }
 
-    return [fetching, isLoading, error]
+    return [fetching, isLoading, artists]
 }

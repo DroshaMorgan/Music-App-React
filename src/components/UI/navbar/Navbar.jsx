@@ -1,7 +1,5 @@
 import React from 'react';
 import artistSvg from "./artists.svg";
-import settingsSvg from "./settings.svg";
-// import artistSvg from "./artists.svg";
 import {Link} from "react-router-dom";
 import cl from "./Navbar.module.css";
 
@@ -19,7 +17,7 @@ const Navbar = ({pauseMusic}) => {
                         </div>
 
                     </div>
-                    <div /*className={cl.navbar__middle-link}*/>
+                    <div className={cl.navbar__middleLink}>
                         <div className={cl.navbar__middleLinkTitle}>
                             Моя коллекция
                         </div>
@@ -27,18 +25,16 @@ const Navbar = ({pauseMusic}) => {
                             <img src={artistSvg} alt="" /*className={cl.navbar_linkImg}*//>
                                 <Link onClick={pauseMusic} to="/artists" className={cl.navbar__links}>Исполнители</Link>
                         </div>
-                        {/*<div className={cl.navbar__linkBlock}>*/}
-                        {/*    <Link href="local-tracks.html" target="_blank" className={cl.navbar__links}>Локальные файлы</Link>*/}
-                        {/*</div>*/}
 
                     </div>
-                    <div /*className={cl.navbar__bottom-link}*/>
-                        <div className={cl.navbar__linkBlock}>
-                            <img src={settingsSvg} alt="" /*className={cl.navbar_linkImg}*//>
-                                <Link to="/#" className={cl.navbar__links}>Настройки</Link>
-                        </div>
 
-                    </div>
+                    {/*<div className={cl.navbar__bottom-link}>*/}
+                    {/*    <div className={cl.navbar__linkBlock}>*/}
+                    {/*        <img src={settingsSvg} alt="" className={cl.navbar_linkImg}/>*/}
+                    {/*            <Link to="/#" className={cl.navbar__links}>Настройки</Link>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+
                 </div>
             </div>
         </div>

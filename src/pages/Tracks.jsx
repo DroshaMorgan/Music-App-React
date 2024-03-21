@@ -3,9 +3,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import Navbar from "../components/UI/navbar/Navbar";
 import '../components/component.scss';
 import BottomPlayer from "../components/bottomPlayer";
-import playerRewind from "../components/player-rewind.svg";
-import playerPlay from "../components/player-play.svg";
-import playerForward from "../components/player-forward.svg";
 import {AuthContext} from "../context/context";
 
 const Tracks = () => {
@@ -15,14 +12,12 @@ const Tracks = () => {
 
     const [tracks, setTracks] = useState([]);
     const [bcgTitle, setBcgTitle] = useState([]);
-    const [audioPlay, setAudioPlay] = useState(new Audio());
-    // const {audioPlay, setAudioPlay} = useContext(AuthContext)
+    // const [audioPlay, setAudioPlay] = useState(new Audio());
+    const {audioPlay, setAudioPlay} = useContext(AuthContext); // альтернатива
     const [currentAudioPlay, setCurrentAudioPlay] = useState({});
     const [currentTimeAudioPlay, setCurrentTimeAudioPlay] = useState('');
-    // const [nextAudioPlay, setNextAudioPlay] = useState();
-    // const [oldTrack, setOldTrack] = useState([]);
     const [currentVolume, setCurrentVolume] = useState(0.2);
-
+    const [isBottom, setIsBottom] = useState(false);
 
     const album_name = useParams();
     useEffect(() => {
@@ -42,11 +37,17 @@ const Tracks = () => {
     function transitToArtists() {
         navigate(`/artists`, {replace: true});
         pauseMusic();
+
+        setIsBottom(false);
+        setAudioPlay(new Audio())
     }
 
     function transitToAlbums(album_name) {
         navigate(`/artists/albums/${album_name}`, {replace: true})
         pauseMusic();
+
+        setIsBottom(false);
+        setAudioPlay(new Audio())
     }
 
     function pauseMusic() {
@@ -69,20 +70,8 @@ const Tracks = () => {
         if (Math.trunc(audioPlay.currentTime) === Math
             .trunc(audioPlay.duration)) {
             nextSong();
-            console.log('отработал');
         }
-    }, [currentTimeAudioPlay/*audioPlay.currentTime audioPlay.ended currentTimeAudioPlay*/])
-    //
-    // useEffect(() => {
-    //     console.log(audioPlay);
-    //     console.log(oldTrack);
-    // }, [oldTrack])
-
-    // useEffect(() => {
-    //     console.log(localStorage.getItem("oldTrack"));
-    //     console.log(audioPlay);
-    //     audioPlay.pause();
-    // }, [tracks])
+    }, [currentTimeAudioPlay])
 
     function changeCurrentTime(e) {
         audioPlay.currentTime = Math.trunc(e.target.value);
@@ -94,10 +83,8 @@ const Tracks = () => {
         setCurrentVolume((e.target.value));
     }
 
-    function onSongClick(position, infoAlbum) {
-        //     bottomPlayer.style = `
-        // display: flex;
-        // `;
+    function onSongClick(position) {
+        setIsBottom(true);
         pauseMusic();
         const currentSong = tracks.find((el) => el.position === position);
         setCurrentAudioPlay(currentSong)
@@ -109,18 +96,10 @@ const Tracks = () => {
         audioList.children[position - 1].classList.add('active-song');
 
         setAudioPlay(new Audio(currentSong.audio));
-
-        // localStorage.setItem("oldTrack", currentSong.audio);
-        // setOldTrack()
-        // setOldTrack([audioPlay]);
-
-        // audioPlay.volume = volumeSlider.value;
-        // volumizer();
     }
 
     function nextSong() {
         pauseMusic();
-
         const audioList = document.querySelector('.play-list');
         const childrenArray = Array.from(audioList.children);
         const currentSongElement = childrenArray.find(el => el.classList.contains('active-song'));
@@ -136,19 +115,15 @@ const Tracks = () => {
 
         const currentSong = tracks
             .find((el) => +el.position === +positionNumber);
-        console.log(currentSong);
 
         audioList.children[positionNumber - 1].classList.add('active-song');
 
         setCurrentAudioPlay(currentSong)
         setAudioPlay(new Audio(currentSong.audio));
-        console.log(audioPlay);
-        // audioPlay.volume = volumeSlider.value;
     }
 
     function prevSong() {
         pauseMusic();
-
         const audioList = document.querySelector('.play-list');
         const childrenArray = Array.from(audioList.children);
         const currentSongElement = childrenArray.find(el => el.classList.contains('active-song'));
@@ -164,31 +139,35 @@ const Tracks = () => {
 
         const currentSong = tracks
             .find((el) => +el.position === +positionNumber);
-        console.log(currentSong);
 
         audioList.children[positionNumber - 1].classList.add('active-song');
 
         setCurrentAudioPlay(currentSong);
         setAudioPlay(new Audio(currentSong.audio));
-
-        // audioPlay.volume = volumeSlider.value;
     }
 
     return (
         <div>
             <Navbar pauseMusic={pauseMusic}/>
             <div className="content">
-                <div style={{zIndex: 10}} onClick={() => {
-                    transitToArtists();
-                    // pauseMusic();
-                }}>Исполнители</div>
-                <div style={{zIndex: 10}} onClick={() => {
-                    transitToAlbums(album_name.artist);
-                    // pauseMusic();
-                }}>Альбомы
+                {/*<div*/}
+                {/*    style={{zIndex: 10}}*/}
+                {/*    onClick={() => {*/}
+                {/*        transitToArtists();*/}
+                {/*    }}*/}
+                {/*>*/}
+                {/*    Исполнители*/}
+                {/*</div>*/}
+                <div
+                    className="backButton"
+                    style={{zIndex: 10}}
+                    onClick={() => {
+                        transitToAlbums(album_name.artist);
+                    }}
+                >
+                  <span>Назад</span>
                 </div>
                 <div className="band-title-block">
-
                     <div style={{
                         backgroundImage: `url(${bcgTitle.image})`,
                         backgroundPosition: "center",
@@ -208,7 +187,6 @@ const Tracks = () => {
                         <div className="band-title-block__el__album-relise-date">{bcgTitle.releasedate}</div>
                     </div>
                 </div>
-
                 <div className="play-list">
                     {tracks.map((track) =>
                         <div key={track.name}
@@ -227,17 +205,17 @@ const Tracks = () => {
                 </div>
             </div>
 
-            <BottomPlayer bcgTitle={bcgTitle}
-                          currentAudioPlay={currentAudioPlay}
-                          currentTimeAudioPlay={currentTimeAudioPlay}
-                          changeCurrentTime={changeCurrentTime}
-                          nextSong={nextSong}
-                          prevSong={prevSong}
-                          pauseMusic={pauseMusic}
-                          playMusic={playMusic}
-                          changeVolume={changeVolume}
-                          currentVolume={currentVolume}
-            />
+            {isBottom && <BottomPlayer bcgTitle={bcgTitle}
+                                       currentAudioPlay={currentAudioPlay}
+                                       currentTimeAudioPlay={currentTimeAudioPlay}
+                                       changeCurrentTime={changeCurrentTime}
+                                       nextSong={nextSong}
+                                       prevSong={prevSong}
+                                       pauseMusic={pauseMusic}
+                                       playMusic={playMusic}
+                                       changeVolume={changeVolume}
+                                       currentVolume={currentVolume}
+            />}
         </div>
     );
 };

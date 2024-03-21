@@ -11,7 +11,7 @@ const MainContent = () => {
                 <div className="main-bcg__info-block-top">Откройте для себя новых
                     независимых исполнителей
                 </div>
-                <Link  to="/artists" className="main-bcg__info-block-middle">Начать</Link>
+                <Link to="/artists" className="main-bcg__info-block-middle">Начать</Link>
                 <div className="main-bcg__info-block-bottom">Используется Jamendo music API</div>
             </div>
         </div>
